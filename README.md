@@ -146,5 +146,175 @@ Later in the course, when we work on projects where more complex input values ar
 ### Exercise: profit calculator
 
 ```go
+package main
 
+import "fmt"
+
+func main() {
+	var revenue float64
+	var expenses float64
+	var taxRate float64
+
+	fmt.Print("Revenue: ")
+	fmt.Scan(&revenue)
+
+	fmt.Print("Expenses: ")
+	fmt.Scan(&expenses)
+
+	fmt.Print("Tax Rate: ")
+	fmt.Scan(&taxRate)
+
+	ebt := revenue - expenses
+	profit := ebt * (1 - taxRate/100)
+	ratio := ebt / profit
+
+	fmt.Println(ebt)
+	fmt.Println(profit)
+	fmt.Println(ratio)
+}
+```
+
+### Formatting strings
+
+[Docs](https://pkg.go.dev/fmt)
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	const inflationRate = 2.5
+	var investmentAmount float64
+	var years float64
+	expectedReturnRate := 5.5
+
+	fmt.Print("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
+
+	fmt.Print("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
+
+	fmt.Print("Years: ")
+	fmt.Scan(&years)
+
+	futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+
+	// outputs information
+	fmt.Println("Future Value:", futureValue)
+	fmt.Printf("Future Value: %.1f\nFuture Value (adjusted for Inflation): %.1f", futureValue, futureRealValue)
+	fmt.Println("Future Value (adjusted for Inflation):", futureRealValue)
+}
+
+```
+
+### Formatting floats
+
+[Docs](https://go.dev/pkg/fmt/?m=old)
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	const inflationRate = 2.5
+	var investmentAmount float64
+	var years float64
+	expectedReturnRate := 5.5
+
+	fmt.Print("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
+
+	fmt.Print("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
+
+	fmt.Print("Years: ")
+	fmt.Scan(&years)
+
+	futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+
+	formattedFV := fmt.Sprintf("Future Value: %.1f\n", futureValue)
+	formattedRFV := fmt.Sprintf("Future Value (adjusted for Inflation): %.1f\n", futureRealValue)
+
+	fmt.Print(formattedFV, formattedRFV)
+}
+```
+
+### Creating formatted strings
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	const inflationRate = 2.5
+	var investmentAmount float64
+	var years float64
+	expectedReturnRate := 5.5
+
+	fmt.Print("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
+
+	fmt.Print("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
+
+	fmt.Print("Years: ")
+	fmt.Scan(&years)
+
+	futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+
+	formattedFV := fmt.Sprintf("Future Value: %.1f\n", futureValue)
+	formattedRFV := fmt.Sprintf("Future Value (adjusted for Inflation): %.1f\n", futureRealValue)
+
+	fmt.Print(formattedFV, formattedRFV)
+}
+```
+
+### Bulding multiline strings
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	const inflationRate = 2.5
+	var investmentAmount float64
+	var years float64
+	expectedReturnRate := 5.5
+
+	fmt.Print("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
+
+	fmt.Print("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
+
+	fmt.Print("Years: ")
+	fmt.Scan(&years)
+
+	futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+
+	formattedFV := fmt.Sprintf("Future Value: %.1f\n", futureValue)
+	formattedRFV := fmt.Sprintf("Future Value (adjusted for Inflation): %.1f\n", futureRealValue)
+
+	fmt.Print(formattedFV, formattedRFV)
+}
 ```
