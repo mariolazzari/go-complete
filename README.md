@@ -452,3 +452,177 @@ func calculateFutureValues(investmentAmount, expectedReturnRate, years float64) 
 	return
 }
 ```
+
+### Exercise: functions
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	revenue := getUserInput("Revenue: ")
+	expenses := getUserInput("Expenses: ")
+	taxRate := getUserInput("Tax Rate: ")
+
+	ebt, profit, ratio := calculateFinancials(revenue, expenses, taxRate)
+
+	fmt.Printf("%.1f\n", ebt)
+	fmt.Printf("%.1f\n", profit)
+	fmt.Printf("%.3f\n", ratio)
+}
+
+func calculateFinancials(revenue, expenses, taxRate float64) (float64, float64, float64) {
+	ebt := revenue - expenses
+	profit := ebt * (1 - taxRate/100)
+	ratio := ebt / profit
+	return ebt, profit, ratio
+}
+
+func getUserInput(infoText string) float64 {
+	var userInput float64
+	fmt.Print(infoText)
+	fmt.Scan(&userInput)
+	return userInput
+}
+```
+
+### Control structures
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Welcome to Go Bank!")
+	fmt.Println("What do you want to do?")
+	fmt.Println("1. Check balance")
+	fmt.Println("2. Deposit money")
+	fmt.Println("3. Withdraw money")
+	fmt.Println("4. Exit")
+
+	var choice int
+	fmt.Print("Your choice: ")
+	fmt.Scan(&choice)
+
+	fmt.Println("Your choice:", choice)
+}
+```
+
+### If statement
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var accountBalance = 1000.0
+
+	fmt.Println("Welcome to Go Bank!")
+	fmt.Println("What do you want to do?")
+	fmt.Println("1. Check balance")
+	fmt.Println("2. Deposit money")
+	fmt.Println("3. Withdraw money")
+	fmt.Println("4. Exit")
+
+	var choice int
+	fmt.Print("Your choice: ")
+	fmt.Scan(&choice)
+
+	// wantsCheckBalance := choice == 1
+
+	if choice == 1 {
+		fmt.Println("Your balance is", accountBalance)
+	}
+
+	fmt.Println("Your choice:", choice)
+}
+```
+
+### Else statement
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var accountBalance = 1000.0
+
+	fmt.Println("Welcome to Go Bank!")
+	fmt.Println("What do you want to do?")
+	fmt.Println("1. Check balance")
+	fmt.Println("2. Deposit money")
+	fmt.Println("3. Withdraw money")
+	fmt.Println("4. Exit")
+
+	var choice int
+	fmt.Print("Your choice: ")
+	fmt.Scan(&choice)
+
+	// wantsCheckBalance := choice == 1
+
+	if choice == 1 {
+		fmt.Println("Your balance is", accountBalance)
+	} else if choice == 2 {
+		fmt.Print("Your deposit: ")
+		var depositAmount float64
+		fmt.Scan(&depositAmount)
+		accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
+		fmt.Println("Balance updated! New amount:", accountBalance)
+	}
+
+	fmt.Println("Your choice:", choice)
+}
+```
+
+### Exercise: if
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var accountBalance = 1000.0
+
+	fmt.Println("Welcome to Go Bank!")
+	fmt.Println("What do you want to do?")
+	fmt.Println("1. Check balance")
+	fmt.Println("2. Deposit money")
+	fmt.Println("3. Withdraw money")
+	fmt.Println("4. Exit")
+
+	var choice int
+	fmt.Print("Your choice: ")
+	fmt.Scan(&choice)
+
+	// wantsCheckBalance := choice == 1
+
+	if choice == 1 {
+		fmt.Println("Your balance is", accountBalance)
+	} else if choice == 2 {
+		fmt.Print("Your deposit: ")
+		var depositAmount float64
+		fmt.Scan(&depositAmount)
+		accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
+		fmt.Println("Balance updated! New amount:", accountBalance)
+	} else if choice == 3 {
+		fmt.Print("Withdrawal amount: ")
+		var withdrawalAmount float64
+		fmt.Scan(&withdrawalAmount)
+		accountBalance -= withdrawalAmount // accountBalance = accountBalance + depositAmount
+		fmt.Println("Balance updated! New amount:", accountBalance)
+	}
+
+	fmt.Println("Your choice:", choice)
+}
+```
+
+### Using else
+
+```go
+
+```
