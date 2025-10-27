@@ -787,7 +787,7 @@ func main() {
 }
 ```
 
-### Infinite loops
+### Infinite loops, break and continue
 
 ```go
 package main
@@ -854,3 +854,254 @@ func main() {
 	fmt.Println("Thanks for choosing our bank")
 }
 ```
+
+### Conditional for
+
+Besides the for variations introduced in the last lectures, there also is another common variation (which will also be shown again later in the course):
+
+```go
+for someCondition {
+  // do something ...
+}
+```
+
+someCondition is an expression that yields a boolean value or a variable that contains a boolean value (i.e., true or false).
+In that case, the loop will continue to execute the code inside the loop body until the condition / variable yields false.
+
+### Switch statement
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var accountBalance = 1000.0
+
+	fmt.Println("Welcome to Go Bank!")
+
+	for {
+		fmt.Println("What do you want to do?")
+		fmt.Println("1. Check balance")
+		fmt.Println("2. Deposit money")
+		fmt.Println("3. Withdraw money")
+		fmt.Println("4. Exit")
+
+		var choice int
+		fmt.Print("Your choice: ")
+		fmt.Scan(&choice)
+
+		// wantsCheckBalance := choice == 1
+
+		switch choice {
+		case 1:
+			fmt.Println("Your balance is", accountBalance)
+		case 2:
+			fmt.Print("Your deposit: ")
+			var depositAmount float64
+			fmt.Scan(&depositAmount)
+
+			if depositAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				// return
+				continue
+			}
+
+			accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+		case 3:
+			fmt.Print("Withdrawal amount: ")
+			var withdrawalAmount float64
+			fmt.Scan(&withdrawalAmount)
+
+			if withdrawalAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				continue
+			}
+
+			if withdrawalAmount > accountBalance {
+				fmt.Println("Invalid amount. You can't withdraw more than you have.")
+				continue
+			}
+
+			accountBalance -= withdrawalAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+		default:
+			fmt.Println("Goodbye!")
+			fmt.Println("Thanks for choosing our bank")
+			return
+			// break
+		}
+	}
+}
+```
+
+### Writing files
+
+[File permissions](https://www.redhat.com/en/blog/linux-file-permissions-explained)
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func writeBalanceToFile(balance float64) {
+	balanceText := fmt.Sprint(balance)
+	os.WriteFile("balance.txt", []byte(balanceText), 0644)
+}
+
+func main() {
+	var accountBalance = 1000.0
+
+	fmt.Println("Welcome to Go Bank!")
+
+	for {
+		fmt.Println("What do you want to do?")
+		fmt.Println("1. Check balance")
+		fmt.Println("2. Deposit money")
+		fmt.Println("3. Withdraw money")
+		fmt.Println("4. Exit")
+
+		var choice int
+		fmt.Print("Your choice: ")
+		fmt.Scan(&choice)
+
+		// wantsCheckBalance := choice == 1
+
+		switch choice {
+		case 1:
+			fmt.Println("Your balance is", accountBalance)
+		case 2:
+			fmt.Print("Your deposit: ")
+			var depositAmount float64
+			fmt.Scan(&depositAmount)
+
+			if depositAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				// return
+				continue
+			}
+
+			accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+			writeBalanceToFile(accountBalance)
+		case 3:
+			fmt.Print("Withdrawal amount: ")
+			var withdrawalAmount float64
+			fmt.Scan(&withdrawalAmount)
+
+			if withdrawalAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				continue
+			}
+
+			if withdrawalAmount > accountBalance {
+				fmt.Println("Invalid amount. You can't withdraw more than you have.")
+				continue
+			}
+
+			accountBalance -= withdrawalAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+			writeBalanceToFile(accountBalance)
+		default:
+			fmt.Println("Goodbye!")
+			fmt.Println("Thanks for choosing our bank")
+			return
+			// break
+		}
+	}
+}
+```
+
+### Reading files
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
+
+const accountBalanceFile = "balance.txt"
+
+func getBalanceFromFile() float64 {
+	data, _ := os.ReadFile(accountBalanceFile)
+	balanceText := string(data)
+	balance, _ := strconv.ParseFloat(balanceText, 64)
+	return balance
+}
+
+func writeBalanceToFile(balance float64) {
+	balanceText := fmt.Sprint(balance)
+	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
+}
+
+func main() {
+	var accountBalance = getBalanceFromFile()
+
+	fmt.Println("Welcome to Go Bank!")
+
+	for {
+		fmt.Println("What do you want to do?")
+		fmt.Println("1. Check balance")
+		fmt.Println("2. Deposit money")
+		fmt.Println("3. Withdraw money")
+		fmt.Println("4. Exit")
+
+		var choice int
+		fmt.Print("Your choice: ")
+		fmt.Scan(&choice)
+
+		// wantsCheckBalance := choice == 1
+
+		switch choice {
+		case 1:
+			fmt.Println("Your balance is", accountBalance)
+		case 2:
+			fmt.Print("Your deposit: ")
+			var depositAmount float64
+			fmt.Scan(&depositAmount)
+
+			if depositAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				// return
+				continue
+			}
+
+			accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+			writeBalanceToFile(accountBalance)
+		case 3:
+			fmt.Print("Withdrawal amount: ")
+			var withdrawalAmount float64
+			fmt.Scan(&withdrawalAmount)
+
+			if withdrawalAmount <= 0 {
+				fmt.Println("Invalid amount. Must be greater than 0.")
+				continue
+			}
+
+			if withdrawalAmount > accountBalance {
+				fmt.Println("Invalid amount. You can't withdraw more than you have.")
+				continue
+			}
+
+			accountBalance -= withdrawalAmount // accountBalance = accountBalance + depositAmount
+			fmt.Println("Balance updated! New amount:", accountBalance)
+			writeBalanceToFile(accountBalance)
+		default:
+			fmt.Println("Goodbye!")
+			fmt.Println("Thanks for choosing our bank")
+			return
+			// break
+		}
+	}
+}
+```
+
+###
