@@ -1308,3 +1308,11 @@ func presentOptions() {
 ```
 
 ### Why more packages?
+
+Reuse a package in multiple projects
+
+### Code for multiple projects
+
+```go
+
+```
