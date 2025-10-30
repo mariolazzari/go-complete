@@ -1469,3 +1469,214 @@ func getAdultYears(age int) int {
 	return age - 18
 }
 ```
+
+### Pointers as values
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+
+	agePointer := &age
+
+	fmt.Println("Age:", *agePointer)
+
+	adultYears := getAdultYears(age)
+	fmt.Println(adultYears)
+}
+
+func getAdultYears(age int) int {
+	return age - 18
+}
+```
+
+### Pointer null
+
+- All values in Go have a so-called "Null Value" - i.e., the value that's set as a default if no value is assigned to a variable.
+- For example, the null value of an int variable is 0. Of a float64, it would be 0.0. Of a string, it's "".
+- For a pointer, it's nil - a special value built-into Go.
+- nil represents the absence of an address value - i.e., a pointer pointing at no address / no value in memory.
+
+### Pointers and functions
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+
+	var agePointer *int
+
+	agePointer = &age
+
+	fmt.Println("Age:", *agePointer)
+
+	adultYears := getAdultYears(agePointer)
+	fmt.Println(adultYears)
+}
+
+func getAdultYears(age *int) int {
+	return *age - 18
+}
+```
+
+### Data mutation
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+
+	agePointer := &age
+
+	fmt.Println("Age:", *agePointer)
+
+	editAgeToAdultYears(agePointer)
+	fmt.Println(age)
+}
+
+func editAgeToAdultYears(age *int) {
+	// return *age - 18
+	*age = *age - 18
+}
+```
+
+## Structs and custom types
+
+Structs group related data togheter
+
+### Struct definition
+
+```go
+type user struct {
+	firstName string
+	lastName  string
+	birthDate string
+	createdAt time.Time
+}
+```
+
+### Struct litteral notation
+
+```go
+
+	//	var appUser user
+	appUser := user{
+		firstName: userFirstName,
+		lastName:  userLastName,
+		birthDate: userBirthdate,
+		createdAt: time.Now(),
+	}
+```
+
+### Struncts and pointers
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type user struct {
+	firstName string
+	lastName  string
+	birthDate string
+	createdAt time.Time
+}
+
+func main() {
+	userFirstName := getUserData("Please enter your first name: ")
+	userLastName := getUserData("Please enter your last name: ")
+	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
+
+	//var appUser user
+	appUser := user{
+		firstName: userFirstName,
+		lastName:  userLastName,
+		birthDate: userBirthdate,
+		createdAt: time.Now(),
+	}
+
+	// ... do something awesome with that gathered data!
+
+	outputUserDetails(&appUser)
+}
+
+func outputUserDetails(u *user) {
+	// ...
+
+	fmt.Println(u.firstName, u.lastName, u.birthDate)
+}
+
+func getUserData(promptText string) string {
+	fmt.Print(promptText)
+	var value string
+	fmt.Scan(&value)
+	return value
+}
+```
+
+### Passing structs as arguments
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type user struct {
+	firstName string
+	lastName  string
+	birthDate string
+	createdAt time.Time
+}
+
+func main() {
+	userFirstName := getUserData("Please enter your first name: ")
+	userLastName := getUserData("Please enter your last name: ")
+	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
+
+	//var appUser user
+	appUser := user{
+		firstName: userFirstName,
+		lastName:  userLastName,
+		birthDate: userBirthdate,
+		createdAt: time.Now(),
+	}
+
+	// ... do something awesome with that gathered data!
+
+	outputUserDetails(&appUser)
+}
+
+func outputUserDetails(u *user) {
+	// ...
+
+	fmt.Println(u.firstName, u.lastName, u.birthDate)
+}
+
+func getUserData(promptText string) string {
+	fmt.Print(promptText)
+	var value string
+	fmt.Scan(&value)
+	return value
+}
+```
+
+### Introducing methods
+
+```go
+
+```
