@@ -2118,5 +2118,106 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 ### Custom types
 
 ```go
+package main
 
+import "fmt"
+
+type str string
+
+func (text str) log() {
+	fmt.Println(text)
+}
+
+func main() {
+	var name str = "Max"
+
+	name.log()
+}
+```
+
+### Exercise: user input
+
+```go
+package main
+
+func main() {
+
+}
+```
+
+### Getting user input
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	title, content, err := getNoteData()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+func getNoteData() (string, string, error) {
+	title, err := getUserInput("Note title:")
+
+	if err != nil {
+		return "", "", err
+	}
+
+	content, err := getUserInput("Note content:")
+
+	if err != nil {
+		return "", "", err
+	}
+
+	return title, content, nil
+}
+
+func getUserInput(prompt string) (string, error) {
+	fmt.Print(prompt)
+	var value string
+	fmt.Scanln(&value)
+
+	if value == "" {
+		return "", errors.New("Invalid input.")
+	}
+
+	return value, nil
+}
+```
+
+### Struct and costructor
+
+```go
+package note
+
+import (
+	"errors"
+	"time"
+)
+
+type Note struct {
+	title     string
+	content   string
+	createdAt time.Time
+}
+
+func New(title, content string) (Note, error) {
+	if title == "" || content == "" {
+		return Note{}, errors.New("Invalid input.")
+	}
+
+	return Note{
+		title:     title,
+		content:   content,
+		createdAt: time.Now(),
+	}, nil
+}
 ```
