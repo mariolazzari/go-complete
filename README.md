@@ -2114,3 +2114,9 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 	}, nil
 }
 ```
+
+### Custom types
+
+```go
+
+```

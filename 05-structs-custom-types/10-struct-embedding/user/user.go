@@ -43,15 +43,17 @@ func NewAdmin(email, password string) Admin {
 	}
 }
 
-func New(firstName, lastName, birthdate string) (*User, error) {
-	if firstName == "" || lastName == "" || birthdate == "" {
+func New(firstName, lastName, birthDate string) (*User, error) {
+	if firstName == "" || lastName == "" || birthDate == "" {
 		return nil, errors.New("First name, last name and birthdate are required.")
 	}
 
+	createdAt := time.Now()
+
 	return &User{
-		firstName: firstName,
-		lastName:  lastName,
-		birthDate: birthdate,
-		createdAt: time.Now(),
+		firstName,
+		lastName,
+		birthDate,
+		createdAt,
 	}, nil
 }
