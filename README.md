@@ -1,5 +1,84 @@
 # Go complete
 
+- [Go complete](#go-complete)
+  - [Getting started](#getting-started)
+    - [Install Go](#install-go)
+    - [Firs program](#firs-program)
+  - [Go essentials](#go-essentials)
+    - [Go packages](#go-packages)
+    - [Go module](#go-module)
+    - [Go types](#go-types)
+    - [Type convertions](#type-convertions)
+    - [Constants](#constants)
+    - [Improve input fetching](#improve-input-fetching)
+    - [Scan limitations](#scan-limitations)
+    - [Exercise: profit calculator](#exercise-profit-calculator)
+    - [Formatting strings](#formatting-strings)
+    - [Formatting floats](#formatting-floats)
+    - [Creating formatted strings](#creating-formatted-strings)
+    - [Bulding multiline strings](#bulding-multiline-strings)
+    - [Undestanding functions](#undestanding-functions)
+    - [Functions return values and scope](#functions-return-values-and-scope)
+    - [Alternative return syntax](#alternative-return-syntax)
+    - [Exercise: functions](#exercise-functions)
+    - [Control structures](#control-structures)
+    - [If statement](#if-statement)
+    - [Else statement](#else-statement)
+    - [Exercise: if](#exercise-if)
+    - [Using else](#using-else)
+    - [Nested if and return to stop](#nested-if-and-return-to-stop)
+    - [For loops](#for-loops)
+    - [Infinite loops, break and continue](#infinite-loops-break-and-continue)
+    - [Conditional for](#conditional-for)
+    - [Switch statement](#switch-statement)
+    - [Writing files](#writing-files)
+    - [Reading files](#reading-files)
+    - [Handling errors](#handling-errors)
+    - [Exercise: file](#exercise-file)
+  - [Packages](#packages)
+    - [Code splitting](#code-splitting)
+    - [Why more packages?](#why-more-packages)
+    - [Importing and exporting](#importing-and-exporting)
+    - [Third party library](#third-party-library)
+  - [Pinters](#pinters)
+    - [Understanding pointers](#understanding-pointers)
+    - [Pointers as values](#pointers-as-values)
+    - [Pointer null](#pointer-null)
+    - [Pointers and functions](#pointers-and-functions)
+    - [Data mutation](#data-mutation)
+  - [Structs and custom types](#structs-and-custom-types)
+    - [Struct definition](#struct-definition)
+    - [Struct litteral notation](#struct-litteral-notation)
+    - [Struncts and pointers](#struncts-and-pointers)
+    - [Passing structs as arguments](#passing-structs-as-arguments)
+    - [Introducing methods](#introducing-methods)
+    - [Mutation methods](#mutation-methods)
+    - [Constructor methods](#constructor-methods)
+    - [Constructor functions](#constructor-functions)
+    - [Constructor functions for validation](#constructor-functions-for-validation)
+    - [Structs, packages and exports](#structs-packages-and-exports)
+    - [Exposing methods](#exposing-methods)
+    - [Struc embedding](#struc-embedding)
+    - [Custom types](#custom-types)
+    - [Exercise: user input](#exercise-user-input)
+    - [Getting user input](#getting-user-input)
+    - [Struct and costructor](#struct-and-costructor)
+    - [Adding a method](#adding-a-method)
+    - [Handling long input](#handling-long-input)
+    - [Save file](#save-file)
+    - [Encoding JSON](#encoding-json)
+    - [Struct tags](#struct-tags)
+  - [Interfaces and generics](#interfaces-and-generics)
+    - [Creating first interface](#creating-first-interface)
+    - [Using first interface](#using-first-interface)
+    - [Embedded interfaces](#embedded-interfaces)
+    - [Any value allowed](#any-value-allowed)
+    - [Type switches](#type-switches)
+    - [Type information from value](#type-information-from-value)
+    - [Generics](#generics)
+  - [Arrays, slices and maps](#arrays-slices-and-maps)
+    - [Arrays](#arrays)
+
 ## Getting started
 
 ### Install Go
@@ -2486,6 +2565,88 @@ func saveData(data saver) error {
 ```
 
 ### Embedded interfaces
+
+```go
+type saver interface {
+	Save() error
+}
+
+type outputtable interface {
+	saver
+	Display()
+}
+```
+
+### Any value allowed
+
+```go
+func printSomething(value any) {
+	fmt.Println(value)
+}
+```
+
+### Type switches
+
+```go
+func printSomething(value interface{}) {
+	switch value.(type) {
+	case int:
+		fmt.Println("Integer:", value)
+	case float64:
+		fmt.Println("Float:", value)
+	case string:
+		fmt.Println(value)
+	}
+}
+```
+
+### Type information from value
+
+```go
+func printSomething(value interface{}) {
+	intVal, ok := value.(int)
+
+	if ok {
+		fmt.Println("Integer:", intVal)
+		return
+	}
+
+	floatVal, ok := value.(float64)
+
+	if ok {
+		fmt.Println("Float:", floatVal)
+		return
+	}
+
+	stringVal, ok := value.(string)
+
+	if ok {
+		fmt.Println("String:", stringVal)
+		return
+	}
+}
+```
+
+### Generics
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	result := add(1, 2)
+	fmt.Println(result)
+}
+
+func add[T int | float64 | string](a, b T) T {
+	return a + b
+}
+```
+
+## Arrays, slices and maps
+
+### Arrays
 
 ```go
 
