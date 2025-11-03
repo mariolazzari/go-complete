@@ -77,7 +77,11 @@
     - [Type information from value](#type-information-from-value)
     - [Generics](#generics)
   - [Arrays, slices and maps](#arrays-slices-and-maps)
-    - [Arrays](#arrays)
+    - [Working with arrays](#working-with-arrays)
+    - [Selecting part of array](#selecting-part-of-array)
+    - [Selecting part of arrays with slices](#selecting-part-of-arrays-with-slices)
+    - [More ways to selecting slices](#more-ways-to-selecting-slices)
+    - [Diving deeper into slices](#diving-deeper-into-slices)
 
 ## Getting started
 
@@ -2646,7 +2650,98 @@ func add[T int | float64 | string](a, b T) T {
 
 ## Arrays, slices and maps
 
-### Arrays
+### Working with arrays
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var productNames [4]string = [4]string{"A Book"}
+	prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+	fmt.Println(prices)
+
+	productNames[2] = "A Carpet"
+
+	fmt.Println(productNames)
+
+	fmt.Println(prices[2])
+}
+```
+
+### Selecting part of array
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var productNames [4]string = [4]string{"A Book"}
+	prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+	fmt.Println(prices)
+
+	productNames[2] = "A Carpet"
+
+	fmt.Println(productNames)
+
+	fmt.Println(prices[2])
+
+	featuredPrices := prices[1:3]
+	fmt.Println(featuredPrices)
+}
+```
+
+### Selecting part of arrays with slices
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var productNames [4]string = [4]string{"A Book"}
+	prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+	fmt.Println(prices)
+
+	productNames[2] = "A Carpet"
+
+	fmt.Println(productNames)
+
+	fmt.Println(prices[2])
+
+	featuredPrices := prices[1:]
+	highlightedPrices := featuredPrices[:1]
+	fmt.Println(highlightedPrices)
+}
+```
+
+### More ways to selecting slices
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var productNames [4]string = [4]string{"A Book"}
+	prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+	fmt.Println(prices)
+
+	productNames[2] = "A Carpet"
+
+	fmt.Println(productNames)
+
+	fmt.Println(prices[2])
+
+	featuredPrices := prices[1:]
+	highlightedPrices := featuredPrices[:1]
+	fmt.Println(highlightedPrices)
+}
+```
+
+### Diving deeper into slices
 
 ```go
 
