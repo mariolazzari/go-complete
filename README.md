@@ -87,6 +87,13 @@
 		- [Unpacking list values](#unpacking-list-values)
 		- [Introducing maps](#introducing-maps)
 		- [Mutating maps](#mutating-maps)
+		- [Maps vs structs](#maps-vs-structs)
+		- [make function](#make-function)
+		- [Making maps](#making-maps)
+		- [Type aliases](#type-aliases)
+		- [For loop with arrays, slices and maps](#for-loop-with-arrays-slices-and-maps)
+	- [Functions deep dive](#functions-deep-dive)
+		- [Function as value and function types](#function-as-value-and-function-types)
 
 ## Getting started
 
@@ -2912,4 +2919,168 @@ func main() {
 	delete(websites, "Google")
 	fmt.Println(websites)
 }
+```
+
+### Maps vs structs
+
+```go
+package main
+
+import "fmt"
+
+type Product struct {
+	id    string
+	title string
+	price float64
+}
+
+func main() {
+	websites := map[string]string{
+		"Google":              "https://google.com",
+		"Amazon Web Services": "https://aws.com",
+	}
+	fmt.Println(websites)
+	fmt.Println(websites["Amazon Web Services"])
+
+	websites["LinkedIn"] = "https://linkedin.com"
+	fmt.Println(websites)
+
+	delete(websites, "Google")
+	fmt.Println(websites)
+}
+```
+
+### make function
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	userNames := make([]string, 2, 5)
+	// userNames := []string{}
+
+	userNames[0] = "Julie"
+
+	userNames = append(userNames, "Max")
+	userNames = append(userNames, "Manuel")
+
+	fmt.Println(userNames)
+}
+```
+
+### Making maps
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	userNames := make([]string, 2, 5)
+	// userNames := []string{}
+
+	userNames[0] = "Julie"
+
+	userNames = append(userNames, "Max")
+	userNames = append(userNames, "Manuel")
+
+	fmt.Println(userNames)
+
+	courseRatings := make(map[string]float64, 3)
+
+	courseRatings["go"] = 4.7
+	courseRatings["react"] = 4.8
+	courseRatings["angular"] = 4.7
+
+	fmt.Println(courseRatings)
+}
+```
+
+### Type aliases
+
+```go
+package main
+
+import "fmt"
+
+type floatMap map[string]float64
+
+func (m floatMap) output() {
+	fmt.Println(m)
+}
+
+func main() {
+	userNames := make([]string, 2, 5)
+
+	userNames[0] = "Julie"
+
+	userNames = append(userNames, "Max")
+	userNames = append(userNames, "Manuel")
+
+	fmt.Println(userNames)
+
+	courseRatings := make(floatMap, 3)
+
+	courseRatings["go"] = 4.7
+	courseRatings["react"] = 4.8
+	courseRatings["angular"] = 4.7
+
+	courseRatings.output()
+}
+
+```
+
+### For loop with arrays, slices and maps
+
+```go
+package main
+
+import "fmt"
+
+type floatMap map[string]float64
+
+func (m floatMap) output() {
+	fmt.Println(m)
+}
+
+func main() {
+	userNames := make([]string, 2, 5)
+
+	userNames[0] = "Julie"
+
+	userNames = append(userNames, "Max")
+	userNames = append(userNames, "Manuel")
+
+	fmt.Println(userNames)
+
+	courseRatings := make(floatMap, 3)
+
+	courseRatings["go"] = 4.7
+	courseRatings["react"] = 4.8
+	courseRatings["angular"] = 4.7
+
+	courseRatings.output()
+
+	for index, value := range userNames {
+		// ...
+		fmt.Println("Index:", index)
+		fmt.Println("Value:", value)
+	}
+
+	for key, value := range courseRatings {
+		// ...
+		fmt.Println("Key:", key)
+		fmt.Println("Value:", value)
+	}
+}
+```
+
+## Functions deep dive
+
+### Function as value and function types
+
+```go
+
 ```
