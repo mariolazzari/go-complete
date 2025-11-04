@@ -1,87 +1,90 @@
 # Go complete
 
 - [Go complete](#go-complete)
-  - [Getting started](#getting-started)
-    - [Install Go](#install-go)
-    - [Firs program](#firs-program)
-  - [Go essentials](#go-essentials)
-    - [Go packages](#go-packages)
-    - [Go module](#go-module)
-    - [Go types](#go-types)
-    - [Type convertions](#type-convertions)
-    - [Constants](#constants)
-    - [Improve input fetching](#improve-input-fetching)
-    - [Scan limitations](#scan-limitations)
-    - [Exercise: profit calculator](#exercise-profit-calculator)
-    - [Formatting strings](#formatting-strings)
-    - [Formatting floats](#formatting-floats)
-    - [Creating formatted strings](#creating-formatted-strings)
-    - [Bulding multiline strings](#bulding-multiline-strings)
-    - [Undestanding functions](#undestanding-functions)
-    - [Functions return values and scope](#functions-return-values-and-scope)
-    - [Alternative return syntax](#alternative-return-syntax)
-    - [Exercise: functions](#exercise-functions)
-    - [Control structures](#control-structures)
-    - [If statement](#if-statement)
-    - [Else statement](#else-statement)
-    - [Exercise: if](#exercise-if)
-    - [Using else](#using-else)
-    - [Nested if and return to stop](#nested-if-and-return-to-stop)
-    - [For loops](#for-loops)
-    - [Infinite loops, break and continue](#infinite-loops-break-and-continue)
-    - [Conditional for](#conditional-for)
-    - [Switch statement](#switch-statement)
-    - [Writing files](#writing-files)
-    - [Reading files](#reading-files)
-    - [Handling errors](#handling-errors)
-    - [Exercise: file](#exercise-file)
-  - [Packages](#packages)
-    - [Code splitting](#code-splitting)
-    - [Why more packages?](#why-more-packages)
-    - [Importing and exporting](#importing-and-exporting)
-    - [Third party library](#third-party-library)
-  - [Pinters](#pinters)
-    - [Understanding pointers](#understanding-pointers)
-    - [Pointers as values](#pointers-as-values)
-    - [Pointer null](#pointer-null)
-    - [Pointers and functions](#pointers-and-functions)
-    - [Data mutation](#data-mutation)
-  - [Structs and custom types](#structs-and-custom-types)
-    - [Struct definition](#struct-definition)
-    - [Struct litteral notation](#struct-litteral-notation)
-    - [Struncts and pointers](#struncts-and-pointers)
-    - [Passing structs as arguments](#passing-structs-as-arguments)
-    - [Introducing methods](#introducing-methods)
-    - [Mutation methods](#mutation-methods)
-    - [Constructor methods](#constructor-methods)
-    - [Constructor functions](#constructor-functions)
-    - [Constructor functions for validation](#constructor-functions-for-validation)
-    - [Structs, packages and exports](#structs-packages-and-exports)
-    - [Exposing methods](#exposing-methods)
-    - [Struc embedding](#struc-embedding)
-    - [Custom types](#custom-types)
-    - [Exercise: user input](#exercise-user-input)
-    - [Getting user input](#getting-user-input)
-    - [Struct and costructor](#struct-and-costructor)
-    - [Adding a method](#adding-a-method)
-    - [Handling long input](#handling-long-input)
-    - [Save file](#save-file)
-    - [Encoding JSON](#encoding-json)
-    - [Struct tags](#struct-tags)
-  - [Interfaces and generics](#interfaces-and-generics)
-    - [Creating first interface](#creating-first-interface)
-    - [Using first interface](#using-first-interface)
-    - [Embedded interfaces](#embedded-interfaces)
-    - [Any value allowed](#any-value-allowed)
-    - [Type switches](#type-switches)
-    - [Type information from value](#type-information-from-value)
-    - [Generics](#generics)
-  - [Arrays, slices and maps](#arrays-slices-and-maps)
-    - [Working with arrays](#working-with-arrays)
-    - [Selecting part of array](#selecting-part-of-array)
-    - [Selecting part of arrays with slices](#selecting-part-of-arrays-with-slices)
-    - [More ways to selecting slices](#more-ways-to-selecting-slices)
-    - [Diving deeper into slices](#diving-deeper-into-slices)
+	- [Getting started](#getting-started)
+		- [Install Go](#install-go)
+		- [Firs program](#firs-program)
+	- [Go essentials](#go-essentials)
+		- [Go packages](#go-packages)
+		- [Go module](#go-module)
+		- [Go types](#go-types)
+		- [Type convertions](#type-convertions)
+		- [Constants](#constants)
+		- [Improve input fetching](#improve-input-fetching)
+		- [Scan limitations](#scan-limitations)
+		- [Exercise: profit calculator](#exercise-profit-calculator)
+		- [Formatting strings](#formatting-strings)
+		- [Formatting floats](#formatting-floats)
+		- [Creating formatted strings](#creating-formatted-strings)
+		- [Bulding multiline strings](#bulding-multiline-strings)
+		- [Undestanding functions](#undestanding-functions)
+		- [Functions return values and scope](#functions-return-values-and-scope)
+		- [Alternative return syntax](#alternative-return-syntax)
+		- [Exercise: functions](#exercise-functions)
+		- [Control structures](#control-structures)
+		- [If statement](#if-statement)
+		- [Else statement](#else-statement)
+		- [Exercise: if](#exercise-if)
+		- [Using else](#using-else)
+		- [Nested if and return to stop](#nested-if-and-return-to-stop)
+		- [For loops](#for-loops)
+		- [Infinite loops, break and continue](#infinite-loops-break-and-continue)
+		- [Conditional for](#conditional-for)
+		- [Switch statement](#switch-statement)
+		- [Writing files](#writing-files)
+		- [Reading files](#reading-files)
+		- [Handling errors](#handling-errors)
+		- [Exercise: file](#exercise-file)
+	- [Packages](#packages)
+		- [Code splitting](#code-splitting)
+		- [Why more packages?](#why-more-packages)
+		- [Importing and exporting](#importing-and-exporting)
+		- [Third party library](#third-party-library)
+	- [Pinters](#pinters)
+		- [Understanding pointers](#understanding-pointers)
+		- [Pointers as values](#pointers-as-values)
+		- [Pointer null](#pointer-null)
+		- [Pointers and functions](#pointers-and-functions)
+		- [Data mutation](#data-mutation)
+	- [Structs and custom types](#structs-and-custom-types)
+		- [Struct definition](#struct-definition)
+		- [Struct litteral notation](#struct-litteral-notation)
+		- [Struncts and pointers](#struncts-and-pointers)
+		- [Passing structs as arguments](#passing-structs-as-arguments)
+		- [Introducing methods](#introducing-methods)
+		- [Mutation methods](#mutation-methods)
+		- [Constructor methods](#constructor-methods)
+		- [Constructor functions](#constructor-functions)
+		- [Constructor functions for validation](#constructor-functions-for-validation)
+		- [Structs, packages and exports](#structs-packages-and-exports)
+		- [Exposing methods](#exposing-methods)
+		- [Struc embedding](#struc-embedding)
+		- [Custom types](#custom-types)
+		- [Exercise: user input](#exercise-user-input)
+		- [Getting user input](#getting-user-input)
+		- [Struct and costructor](#struct-and-costructor)
+		- [Adding a method](#adding-a-method)
+		- [Handling long input](#handling-long-input)
+		- [Save file](#save-file)
+		- [Encoding JSON](#encoding-json)
+		- [Struct tags](#struct-tags)
+	- [Interfaces and generics](#interfaces-and-generics)
+		- [Creating first interface](#creating-first-interface)
+		- [Using first interface](#using-first-interface)
+		- [Embedded interfaces](#embedded-interfaces)
+		- [Any value allowed](#any-value-allowed)
+		- [Type switches](#type-switches)
+		- [Type information from value](#type-information-from-value)
+		- [Generics](#generics)
+	- [Arrays, slices and maps](#arrays-slices-and-maps)
+		- [Working with arrays](#working-with-arrays)
+		- [Selecting part of array](#selecting-part-of-array)
+		- [Selecting part of arrays with slices](#selecting-part-of-arrays-with-slices)
+		- [More ways to selecting slices](#more-ways-to-selecting-slices)
+		- [Diving deeper into slices](#diving-deeper-into-slices)
+		- [Dynamic lists with slices](#dynamic-lists-with-slices)
+		- [Exercise: slices](#exercise-slices)
+		- [Unpacking list values](#unpacking-list-values)
 
 ## Getting started
 
@@ -2742,6 +2745,112 @@ func main() {
 ```
 
 ### Diving deeper into slices
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var productNames [4]string = [4]string{"A Book"}
+	prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+	fmt.Println(prices)
+
+	productNames[2] = "A Carpet"
+
+	fmt.Println(productNames)
+
+	fmt.Println(prices[2])
+
+	featuredPrices := prices[1:]
+	featuredPrices[0] = 199.99
+	highlightedPrices := featuredPrices[:1]
+	fmt.Println(highlightedPrices)
+	fmt.Println(prices)
+	fmt.Println(len(highlightedPrices), cap(highlightedPrices))
+
+	highlightedPrices = highlightedPrices[:3]
+	fmt.Println(highlightedPrices)
+	fmt.Println(len(highlightedPrices), cap(highlightedPrices))
+}
+```
+
+### Dynamic lists with slices
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	prices := []float64{10.99, 8.99}
+	fmt.Println(prices[0:1])
+	prices[1] = 9.99
+
+	prices = append(prices, 5.99)
+	prices = prices[1:]
+	fmt.Println(prices)
+}
+```
+
+### Exercise: slices
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// 1) Create a new array (!) that contains three hobbies you have
+	hobbies := [3]string{"music", "reading", "traveling"}
+	// 		Output (print) that array in the command line.
+	fmt.Println("My hobbies:", hobbies)
+
+	// 2) Also output more data about that array:
+	//		- The first element (standalone)
+	fmt.Println("First hobby:", hobbies[0])
+	//		- The second and third element combined as a new list
+	newList := []string{hobbies[1], hobbies[2]}
+	fmt.Println("Other hobbies:", newList)
+
+	// 3) Create a slice based on the first element that contains
+	//		the first and second elements.
+	slice := hobbies[0:2]
+	fmt.Println("1st and 2nd hobbies:", slice)
+	//		Create that slice in two different ways (i.e. create two slices in the end)
+	slice = hobbies[:2]
+	fmt.Println("1st and 2nd hobbies:", slice)
+
+	// 4) Re-slice the slice from (3) and change it to contain the second
+	//		and last element of the original array.
+	slice = hobbies[1:]
+	fmt.Println("1st and 2nd hobbies:", slice)
+
+	// 5) Create a "dynamic array" that contains your course goals (at least 2 goals)
+	myGoals := []string{"Learning Go", "REST"}
+	fmt.Println("My course goals:", myGoals)
+
+	// 6) Set the second goal to a different one AND then add a third goal to that existing dynamic array
+	myGoals[1] = "REST API"
+	myGoals = append(myGoals, "Go on backend")
+	fmt.Println("My course goals:", myGoals)
+
+	// 7) Bonus: Create a "Product" struct with title, id, price and create a
+	//		dynamic list of products (at least 2 products).
+	products := []Product{{1, "Prod1", 10}, {2, "Prod2", 20}}
+	//		Then add a third product to the existing list of products.
+	products = append(products, Product{3, "Prod3", 30})
+	fmt.Println("My products:", products)
+}
+
+type Product struct {
+	id    int
+	title string
+	price float64
+}
+```
+
+### Unpacking list values
 
 ```go
 
