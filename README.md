@@ -1,99 +1,123 @@
 # Go complete
 
 - [Go complete](#go-complete)
-	- [Getting started](#getting-started)
-		- [Install Go](#install-go)
-		- [Firs program](#firs-program)
-	- [Go essentials](#go-essentials)
-		- [Go packages](#go-packages)
-		- [Go module](#go-module)
-		- [Go types](#go-types)
-		- [Type convertions](#type-convertions)
-		- [Constants](#constants)
-		- [Improve input fetching](#improve-input-fetching)
-		- [Scan limitations](#scan-limitations)
-		- [Exercise: profit calculator](#exercise-profit-calculator)
-		- [Formatting strings](#formatting-strings)
-		- [Formatting floats](#formatting-floats)
-		- [Creating formatted strings](#creating-formatted-strings)
-		- [Bulding multiline strings](#bulding-multiline-strings)
-		- [Undestanding functions](#undestanding-functions)
-		- [Functions return values and scope](#functions-return-values-and-scope)
-		- [Alternative return syntax](#alternative-return-syntax)
-		- [Exercise: functions](#exercise-functions)
-		- [Control structures](#control-structures)
-		- [If statement](#if-statement)
-		- [Else statement](#else-statement)
-		- [Exercise: if](#exercise-if)
-		- [Using else](#using-else)
-		- [Nested if and return to stop](#nested-if-and-return-to-stop)
-		- [For loops](#for-loops)
-		- [Infinite loops, break and continue](#infinite-loops-break-and-continue)
-		- [Conditional for](#conditional-for)
-		- [Switch statement](#switch-statement)
-		- [Writing files](#writing-files)
-		- [Reading files](#reading-files)
-		- [Handling errors](#handling-errors)
-		- [Exercise: file](#exercise-file)
-	- [Packages](#packages)
-		- [Code splitting](#code-splitting)
-		- [Why more packages?](#why-more-packages)
-		- [Importing and exporting](#importing-and-exporting)
-		- [Third party library](#third-party-library)
-	- [Pinters](#pinters)
-		- [Understanding pointers](#understanding-pointers)
-		- [Pointers as values](#pointers-as-values)
-		- [Pointer null](#pointer-null)
-		- [Pointers and functions](#pointers-and-functions)
-		- [Data mutation](#data-mutation)
-	- [Structs and custom types](#structs-and-custom-types)
-		- [Struct definition](#struct-definition)
-		- [Struct litteral notation](#struct-litteral-notation)
-		- [Struncts and pointers](#struncts-and-pointers)
-		- [Passing structs as arguments](#passing-structs-as-arguments)
-		- [Introducing methods](#introducing-methods)
-		- [Mutation methods](#mutation-methods)
-		- [Constructor methods](#constructor-methods)
-		- [Constructor functions](#constructor-functions)
-		- [Constructor functions for validation](#constructor-functions-for-validation)
-		- [Structs, packages and exports](#structs-packages-and-exports)
-		- [Exposing methods](#exposing-methods)
-		- [Struc embedding](#struc-embedding)
-		- [Custom types](#custom-types)
-		- [Exercise: user input](#exercise-user-input)
-		- [Getting user input](#getting-user-input)
-		- [Struct and costructor](#struct-and-costructor)
-		- [Adding a method](#adding-a-method)
-		- [Handling long input](#handling-long-input)
-		- [Save file](#save-file)
-		- [Encoding JSON](#encoding-json)
-		- [Struct tags](#struct-tags)
-	- [Interfaces and generics](#interfaces-and-generics)
-		- [Creating first interface](#creating-first-interface)
-		- [Using first interface](#using-first-interface)
-		- [Embedded interfaces](#embedded-interfaces)
-		- [Any value allowed](#any-value-allowed)
-		- [Type switches](#type-switches)
-		- [Type information from value](#type-information-from-value)
-		- [Generics](#generics)
-	- [Arrays, slices and maps](#arrays-slices-and-maps)
-		- [Working with arrays](#working-with-arrays)
-		- [Selecting part of array](#selecting-part-of-array)
-		- [Selecting part of arrays with slices](#selecting-part-of-arrays-with-slices)
-		- [More ways to selecting slices](#more-ways-to-selecting-slices)
-		- [Diving deeper into slices](#diving-deeper-into-slices)
-		- [Dynamic lists with slices](#dynamic-lists-with-slices)
-		- [Exercise: slices](#exercise-slices)
-		- [Unpacking list values](#unpacking-list-values)
-		- [Introducing maps](#introducing-maps)
-		- [Mutating maps](#mutating-maps)
-		- [Maps vs structs](#maps-vs-structs)
-		- [make function](#make-function)
-		- [Making maps](#making-maps)
-		- [Type aliases](#type-aliases)
-		- [For loop with arrays, slices and maps](#for-loop-with-arrays-slices-and-maps)
-	- [Functions deep dive](#functions-deep-dive)
-		- [Function as value and function types](#function-as-value-and-function-types)
+  - [Getting started](#getting-started)
+    - [Install Go](#install-go)
+    - [Firs program](#firs-program)
+  - [Go essentials](#go-essentials)
+    - [Go packages](#go-packages)
+    - [Go module](#go-module)
+    - [Go types](#go-types)
+    - [Type convertions](#type-convertions)
+    - [Constants](#constants)
+    - [Improve input fetching](#improve-input-fetching)
+    - [Scan limitations](#scan-limitations)
+    - [Exercise: profit calculator](#exercise-profit-calculator)
+    - [Formatting strings](#formatting-strings)
+    - [Formatting floats](#formatting-floats)
+    - [Creating formatted strings](#creating-formatted-strings)
+    - [Bulding multiline strings](#bulding-multiline-strings)
+    - [Undestanding functions](#undestanding-functions)
+    - [Functions return values and scope](#functions-return-values-and-scope)
+    - [Alternative return syntax](#alternative-return-syntax)
+    - [Exercise: functions](#exercise-functions)
+    - [Control structures](#control-structures)
+    - [If statement](#if-statement)
+    - [Else statement](#else-statement)
+    - [Exercise: if](#exercise-if)
+    - [Using else](#using-else)
+    - [Nested if and return to stop](#nested-if-and-return-to-stop)
+    - [For loops](#for-loops)
+    - [Infinite loops, break and continue](#infinite-loops-break-and-continue)
+    - [Conditional for](#conditional-for)
+    - [Switch statement](#switch-statement)
+    - [Writing files](#writing-files)
+    - [Reading files](#reading-files)
+    - [Handling errors](#handling-errors)
+    - [Exercise: file](#exercise-file)
+  - [Packages](#packages)
+    - [Code splitting](#code-splitting)
+    - [Why more packages?](#why-more-packages)
+    - [Importing and exporting](#importing-and-exporting)
+    - [Third party library](#third-party-library)
+  - [Pinters](#pinters)
+    - [Understanding pointers](#understanding-pointers)
+    - [Pointers as values](#pointers-as-values)
+    - [Pointer null](#pointer-null)
+    - [Pointers and functions](#pointers-and-functions)
+    - [Data mutation](#data-mutation)
+  - [Structs and custom types](#structs-and-custom-types)
+    - [Struct definition](#struct-definition)
+    - [Struct litteral notation](#struct-litteral-notation)
+    - [Struncts and pointers](#struncts-and-pointers)
+    - [Passing structs as arguments](#passing-structs-as-arguments)
+    - [Introducing methods](#introducing-methods)
+    - [Mutation methods](#mutation-methods)
+    - [Constructor methods](#constructor-methods)
+    - [Constructor functions](#constructor-functions)
+    - [Constructor functions for validation](#constructor-functions-for-validation)
+    - [Structs, packages and exports](#structs-packages-and-exports)
+    - [Exposing methods](#exposing-methods)
+    - [Struc embedding](#struc-embedding)
+    - [Custom types](#custom-types)
+    - [Exercise: user input](#exercise-user-input)
+    - [Getting user input](#getting-user-input)
+    - [Struct and costructor](#struct-and-costructor)
+    - [Adding a method](#adding-a-method)
+    - [Handling long input](#handling-long-input)
+    - [Save file](#save-file)
+    - [Encoding JSON](#encoding-json)
+    - [Struct tags](#struct-tags)
+  - [Interfaces and generics](#interfaces-and-generics)
+    - [Creating first interface](#creating-first-interface)
+    - [Using first interface](#using-first-interface)
+    - [Embedded interfaces](#embedded-interfaces)
+    - [Any value allowed](#any-value-allowed)
+    - [Type switches](#type-switches)
+    - [Type information from value](#type-information-from-value)
+    - [Generics](#generics)
+  - [Arrays, slices and maps](#arrays-slices-and-maps)
+    - [Working with arrays](#working-with-arrays)
+    - [Selecting part of array](#selecting-part-of-array)
+    - [Selecting part of arrays with slices](#selecting-part-of-arrays-with-slices)
+    - [More ways to selecting slices](#more-ways-to-selecting-slices)
+    - [Diving deeper into slices](#diving-deeper-into-slices)
+    - [Dynamic lists with slices](#dynamic-lists-with-slices)
+    - [Exercise: slices](#exercise-slices)
+    - [Unpacking list values](#unpacking-list-values)
+    - [Introducing maps](#introducing-maps)
+    - [Mutating maps](#mutating-maps)
+    - [Maps vs structs](#maps-vs-structs)
+    - [make function](#make-function)
+    - [Making maps](#making-maps)
+    - [Type aliases](#type-aliases)
+    - [For loop with arrays, slices and maps](#for-loop-with-arrays-slices-and-maps)
+  - [Functions deep dive](#functions-deep-dive)
+    - [Function as value and function types](#function-as-value-and-function-types)
+    - [Returning functions as values](#returning-functions-as-values)
+    - [Anonymous functions](#anonymous-functions)
+    - [Understanding closures](#understanding-closures)
+    - [Recursion](#recursion)
+    - [Variadic functions](#variadic-functions)
+  - [Price calcuòator](#price-calcuòator)
+    - [First version](#first-version)
+    - [First struct](#first-struct)
+    - [Constructor function](#constructor-function)
+    - [Adding a method](#adding-a-method-1)
+    - [Loading data from file](#loading-data-from-file)
+    - [Working with file data](#working-with-file-data)
+    - [Sharable logic package](#sharable-logic-package)
+    - [File access](#file-access)
+    - [Storing JSON](#storing-json)
+    - [FileManager struct](#filemanager-struct)
+    - [Tag struct](#tag-struct)
+    - [Swappable content](#swappable-content)
+    - [Interfaces](#interfaces)
+    - [Error handling](#error-handling)
+  - [Concurrency](#concurrency)
+    - [Goroutines](#goroutines)
+    - [Running goroutines](#running-goroutines)
+    - [Go channels](#go-channels)
 
 ## Getting started
 
@@ -3082,5 +3106,741 @@ func main() {
 ### Function as value and function types
 
 ```go
+package main
 
+import "fmt"
+
+type transformFn func(int) int
+
+// type anotherFn func(int, []string, map[string][]int) ([]int, string)
+
+func main() {
+	numbers := []int{1, 2, 3, 4}
+	moreNumbers := []int{5, 1, 2}
+	doubled := transformNumbers(&numbers, double)
+	tripled := transformNumbers(&numbers, triple)
+
+	fmt.Println(doubled)
+	fmt.Println(tripled)
+
+	transformerFn1 := getTransformerFunction(&numbers)
+	transformerFn2 := getTransformerFunction(&moreNumbers)
+
+	transformedNumbers := transformNumbers(&numbers, transformerFn1)
+	moreTransformedNumbers := transformNumbers(&moreNumbers, transformerFn2)
+
+	fmt.Println(transformedNumbers)
+	fmt.Println(moreTransformedNumbers)
+}
+
+func transformNumbers(numbers *[]int, transform transformFn) []int {
+	dNumbers := []int{}
+
+	for _, val := range *numbers {
+		dNumbers = append(dNumbers, transform(val))
+	}
+
+	return dNumbers
+}
+
+func getTransformerFunction(numbers *[]int) transformFn {
+	if (*numbers)[0] == 1 {
+		return double
+	} else {
+		return triple
+	}
+}
+
+func double(number int) int {
+	return number * 2
+}
+
+func triple(number int) int {
+	return number * 3
+}
+```
+
+### Returning functions as values
+
+```go
+package functionsarevalues
+
+import "fmt"
+
+type transformFn func(int) int
+
+// type anotherFn func(int, []string, map[string][]int) ([]int, string)
+
+func main() {
+	numbers := []int{1, 2, 3, 4}
+	moreNumbers := []int{5, 1, 2}
+	doubled := transformNumbers(&numbers, double)
+	tripled := transformNumbers(&numbers, triple)
+
+	fmt.Println(doubled)
+	fmt.Println(tripled)
+
+	transformerFn1 := getTransformerFunction(&numbers)
+	transformerFn2 := getTransformerFunction(&moreNumbers)
+
+	transformedNumbers := transformNumbers(&numbers, transformerFn1)
+	moreTransformedNumbers := transformNumbers(&moreNumbers, transformerFn2)
+
+	fmt.Println(transformedNumbers)
+	fmt.Println(moreTransformedNumbers)
+}
+
+func transformNumbers(numbers *[]int, transform transformFn) []int {
+	dNumbers := []int{}
+
+	for _, val := range *numbers {
+		dNumbers = append(dNumbers, transform(val))
+	}
+
+	return dNumbers
+}
+
+func getTransformerFunction(numbers *[]int) transformFn {
+	if (*numbers)[0] == 1 {
+		return double
+	} else {
+		return triple
+	}
+}
+
+func double(number int) int {
+	return number * 2
+}
+
+func triple(number int) int {
+	return number * 3
+}
+```
+
+### Anonymous functions
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	numbers := []int{1, 2, 3}
+
+	transformed := transformNumbers(&numbers, func(number int) int {
+		return number * 2
+	})
+
+	fmt.Println(transformed)
+}
+
+func transformNumbers(numbers *[]int, transform func(int) int) []int {
+	dNumbers := []int{}
+
+	for _, val := range *numbers {
+		dNumbers = append(dNumbers, transform(val))
+	}
+
+	return dNumbers
+}
+```
+
+### Understanding closures
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	numbers := []int{1, 2, 3}
+
+	double := createTransformer(2)
+	triple := createTransformer(3)
+
+	transformed := transformNumbers(&numbers, func(number int) int {
+		return number * 2
+	})
+
+	doubled := transformNumbers(&numbers, double)
+	tripled := transformNumbers(&numbers, triple)
+
+	fmt.Println(transformed)
+	fmt.Println(doubled)
+	fmt.Println(tripled)
+}
+
+func transformNumbers(numbers *[]int, transform func(int) int) []int {
+	dNumbers := []int{}
+
+	for _, val := range *numbers {
+		dNumbers = append(dNumbers, transform(val))
+	}
+
+	return dNumbers
+}
+
+func createTransformer(factor int) func(int) int {
+	return func(number int) int {
+		return number * factor
+	}
+}
+```
+
+### Recursion
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fact := factorial(5)
+	fmt.Println(fact)
+}
+
+func factorial(number int) int {
+	if number == 0 {
+		return 1
+	}
+	return number * factorial(number-1)
+
+	// result := 1
+
+	// for i := 1; i <= number; i++ {
+	// 	result = result * i
+	// }
+
+	// return result
+}
+
+// factorial of 5 => 5 * 4 * 3 * 2 * 1 => 120
+```
+
+### Variadic functions
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	numbers := []int{1, 10, 15}
+	sum := sumup(1, 10, 15, 40, -5)
+	anotherSum := sumup(1, numbers...)
+
+	fmt.Println(sum)
+	fmt.Println(anotherSum)
+}
+
+func sumup(startingValue int, numbers ...int) int {
+	sum := startingValue
+
+	for _, val := range numbers {
+		sum += val // sum = sum + val
+	}
+
+	return sum
+}
+```
+
+## Price calcuòator
+
+### First version
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	prices := []float64{10, 20, 30}
+	taxRates := []float64{0, 0.07, 0.1, 0.15}
+
+	result := make(map[float64][]float64)
+
+	for _, taxRate := range taxRates {
+		taxIncludedPrices := make([]float64, len(prices))
+		for priceIndex, price := range prices {
+			taxIncludedPrices[priceIndex] = price * (1 + taxRate)
+		}
+		result[taxRate] = taxIncludedPrices
+	}
+
+	fmt.Println(result)
+}
+```
+
+### First struct
+
+```go
+package prices
+
+import "fmt"
+
+type TaxIncludedPriceJob struct {
+	TaxRate           float64
+	InputPrices       []float64
+	TaxIncludedPrices map[string]float64
+}
+
+func (job TaxIncludedPriceJob) Process() {
+	result := make(map[string]float64)
+
+	for _, price := range job.InputPrices {
+		result[fmt.Sprintf("%.2f", price)] = price * (1 + job.TaxRate)
+	}
+
+	fmt.Println(result)
+}
+
+func NewTaxIncludedPriceJob(taxRate float64) *TaxIncludedPriceJob {
+	return &TaxIncludedPriceJob{
+		InputPrices: []float64{10, 20, 30},
+		TaxRate:     taxRate,
+	}
+}
+```
+
+### Constructor function
+
+```go
+func NewTaxIncludedPriceJob(taxRate float64) *TaxIncludedPriceJob {
+	return &TaxIncludedPriceJob{
+		InputPrices: []float64{10, 20, 30},
+		TaxRate:     taxRate,
+	}
+}
+```
+
+### Adding a method
+
+```go
+func (job *TaxIncludedPriceJob) Process() {
+	job.LoadData()
+
+	result := make(map[string]string)
+
+	for _, price := range job.InputPrices {
+		taxIncludedPrice := price * (1 + job.TaxRate)
+		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", taxIncludedPrice)
+	}
+
+	fmt.Println(result)
+}
+```
+
+### Loading data from file
+
+```go
+func (job *TaxIncludedPriceJob) LoadData() {
+	file, err := os.Open("prices.txt")
+
+	if err != nil {
+		fmt.Println("Could not open file!")
+		fmt.Println(err)
+		return
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	err = scanner.Err()
+
+	if err != nil {
+		fmt.Println("Reading the file content failed.")
+		fmt.Println(err)
+		file.Close()
+		return
+	}
+
+	prices := make([]float64, len(lines))
+}
+```
+
+### Working with file data
+
+```go
+	for lineIndex, line := range lines {
+		floatPrice, err := strconv.ParseFloat(line, 64)
+
+		if err != nil {
+			fmt.Println("Converting price to float failed.")
+			fmt.Println(err)
+			file.Close()
+			return
+		}
+
+		prices[lineIndex] = floatPrice
+	}
+
+	job.InputPrices = prices
+```
+
+### Sharable logic package
+
+```go
+package conversion
+
+import (
+	"errors"
+	"strconv"
+)
+
+func StringsToFloats(strings []string) ([]float64, error) {
+	var floats []float64
+
+	for _, stringVal := range strings {
+		floatVal, err := strconv.ParseFloat(stringVal, 64)
+
+		if err != nil {
+			return nil, errors.New("Failed to convert string to float.")
+		}
+
+		floats = append(floats, floatVal)
+	}
+
+	return floats, nil
+}
+```
+
+### File access
+
+```go
+package filemanager
+
+import (
+	"bufio"
+	"errors"
+	"os"
+)
+
+func ReadLines(path string) ([]string, error) {
+	file, err := os.Open(path)
+
+	if err != nil {
+		return nil, errors.New("Failed to open file.")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	err = scanner.Err()
+
+	if err != nil {
+		file.Close()
+		return nil, errors.New("Failed to read line in file.")
+	}
+
+	file.Close()
+	return lines, nil
+}
+```
+
+### Storing JSON
+
+```go
+package conversion
+
+import (
+	"errors"
+	"strconv"
+)
+
+func StringsToFloats(strings []string) ([]float64, error) {
+	var floats []float64
+
+	for _, stringVal := range strings {
+		floatVal, err := strconv.ParseFloat(stringVal, 64)
+
+		if err != nil {
+			return nil, errors.New("Failed to convert string to float.")
+		}
+
+		floats = append(floats, floatVal)
+	}
+
+	return floats, nil
+}
+```
+
+### FileManager struct
+
+```go
+package filemanager
+
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"os"
+)
+
+type FileManager struct {
+	InputFilePath  string
+	OutputFilePath string
+}
+
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
+
+	if err != nil {
+		return nil, errors.New("Failed to open file.")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	err = scanner.Err()
+
+	if err != nil {
+		file.Close()
+		return nil, errors.New("Failed to read line in file.")
+	}
+
+	file.Close()
+	return lines, nil
+}
+
+func (fm FileManager) WriteResult(data interface{}) error {
+	file, err := os.Create(fm.OutputFilePath)
+
+	if err != nil {
+		return errors.New("Failed to create file.")
+	}
+
+	encoder := json.NewEncoder(file)
+	err = encoder.Encode(data)
+
+	if err != nil {
+		file.Close()
+		return errors.New("Faild to convert data to JSON.")
+	}
+
+	file.Close()
+	return nil
+}
+
+func New(inputPath, outputPath string) FileManager {
+	return FileManager{
+		InputFilePath:  inputPath,
+		OutputFilePath: outputPath,
+	}
+}
+```
+
+### Tag struct
+
+```go
+type TaxIncludedPriceJob struct {
+	IOManager         filemanager.FileManager `json:"-"`
+	TaxRate           float64                 `json:"tax_rate"`
+	InputPrices       []float64               `json:"input_prices"`
+	TaxIncludedPrices map[string]string       `json:"tax_included_prices"`
+}
+```
+
+### Swappable content
+
+```go
+package cmdmanager
+
+import "fmt"
+
+type CMDManager struct {
+}
+
+func (cmd CMDManager) ReadLines() ([]string, error) {
+	fmt.Println("Please enter your prices. Confirm every price with ENTER")
+
+	var prices []string
+
+	for {
+		var price string
+		fmt.Print("Price: ")
+		fmt.Scan(&price)
+
+		if price == "0" {
+			break
+		}
+		prices = append(prices, price)
+	}
+
+	return prices, nil
+}
+
+func (cmd CMDManager) WriteResult(data interface{}) error {
+	fmt.Println(data)
+	return nil
+}
+
+func New() CMDManager {
+	return CMDManager{}
+}
+```
+
+### Interfaces
+
+```go
+package iomanager
+
+type IOManager interface {
+	ReadLines() ([]string, error)
+	WriteResult(data interface{}) error
+}
+```
+
+### Error handling
+
+```go
+package filemanager
+
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"os"
+)
+
+type FileManager struct {
+	InputFilePath  string
+	OutputFilePath string
+}
+
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
+
+	if err != nil {
+		return nil, errors.New("Failed to open file.")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	err = scanner.Err()
+
+	if err != nil {
+		file.Close()
+		return nil, errors.New("Failed to read line in file.")
+	}
+
+	file.Close()
+	return lines, nil
+}
+
+func (fm FileManager) WriteResult(data interface{}) error {
+	file, err := os.Create(fm.OutputFilePath)
+
+	if err != nil {
+		return errors.New("Failed to create file.")
+	}
+
+	encoder := json.NewEncoder(file)
+	err = encoder.Encode(data)
+
+	if err != nil {
+		file.Close()
+		return errors.New("Faild to convert data to JSON.")
+	}
+
+	file.Close()
+	return nil
+}
+
+func New(inputPath, outputPath string) FileManager {
+	return FileManager{
+		InputFilePath:  inputPath,
+		OutputFilePath: outputPath,
+	}
+}
+```
+
+## Concurrency
+
+### Goroutines
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func greet(phrase string) {
+	fmt.Println("Hello!", phrase)
+}
+
+func slowGreet(phrase string) {
+	time.Sleep(3 * time.Second) // simulate a slow, long-taking task
+	fmt.Println("Hello!", phrase)
+}
+
+func main() {
+	greet("Nice to meet you!")
+	greet("How are you?")
+	slowGreet("How ... are ... you ...?")
+	greet("I hope you're liking the course!")
+}
+```
+
+### Running goroutines
+
+```go
+func main() {
+	go greet("Nice to meet you!")
+	go greet("How are you?")
+	go slowGreet("How ... are ... you ...?")
+	go greet("I hope you're liking the course!")
+}
+```
+
+### Go channels
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func greet(phrase string) {
+	fmt.Println("Hello!", phrase)
+}
+
+func slowGreet(phrase string, doneChan chan bool) {
+	time.Sleep(3 * time.Second) // simulate a slow, long-taking task
+	fmt.Println("Hello!", phrase)
+	doneChan <- true
+}
+
+func main() {
+	go greet("Nice to meet you!")
+	go greet("How are you?")
+	done := make(chan bool)
+	go slowGreet("How ... are ... you ...?", done)
+	go greet("I hope you're liking the course!")
+	<-done
+}
 ```
