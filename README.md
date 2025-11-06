@@ -121,6 +121,10 @@
     - [Multiple channels](#multiple-channels)
     - [Goroutines and channels](#goroutines-and-channels)
     - [Error channel](#error-channel)
+    - [Selecting channel](#selecting-channel)
+    - [Deferring execution](#deferring-execution)
+  - [Rest Api](#rest-api)
+    - [Gin framework](#gin-framework)
 
 ## Getting started
 
@@ -3931,5 +3935,102 @@ func main() {
 ### Error channel
 
 ```go
+func (job *TaxIncludedPriceJob) Process(doneChan chan bool, errorChan chan error) {
+	err := job.LoadData()
 
+	if err != nil {
+		errorChan <- err
+		return
+	}
+
+	result := make(map[string]string)
+
+	for _, price := range job.InputPrices {
+		taxIncludedPrice := price * (1 + job.TaxRate)
+		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", taxIncludedPrice)
+	}
+
+	job.TaxIncludedPrices = result
+	job.IOManager.WriteResult(job)
+	doneChan <- true
+}
+```
+
+### Selecting channel
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"example.com/price-calculator/filemanager"
+	"example.com/price-calculator/prices"
+)
+
+func main() {
+	taxRates := []float64{0, 0.07, 0.1, 0.15}
+	doneChans := make([]chan bool, len(taxRates))
+	errorChans := make([]chan error, len(taxRates))
+
+	for index, taxRate := range taxRates {
+		doneChans[index] = make(chan bool)
+		errorChans[index] = make(chan error)
+		fm := filemanager.New("prices.txt", fmt.Sprintf("result_%.0f.json", taxRate*100))
+		// cmdm := cmdmanager.New()
+		priceJob := prices.NewTaxIncludedPriceJob(fm, taxRate)
+		go priceJob.Process(doneChans[index], errorChans[index])
+	}
+
+	for index := range taxRates {
+		select {
+		case err := <-errorChans[index]:
+			if err != nil {
+				fmt.Println(err)
+			}
+		case <-doneChans[index]:
+			fmt.Println("Done!")
+		}
+	}
+}
+```
+
+### Deferring execution
+
+```go
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
+
+	if err != nil {
+		return nil, errors.New("Failed to open file.")
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	err = scanner.Err()
+
+	if err != nil {
+		return nil, errors.New("Failed to read line in file.")
+	}
+
+	return lines, nil
+}
+```
+
+## Rest Api
+
+### Gin framework
+
+```sh
+mkdir gin-quickstart && cd gin-quickstart
+go mod init gin-quickstart
+go get -u github.com/gin-gonic/gin
 ```
