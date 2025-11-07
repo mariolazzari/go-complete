@@ -134,6 +134,8 @@
     - [Select from database](#select-from-database)
     - [Preparing Statements vs Directly Executing Queries](#preparing-statements-vs-directly-executing-queries)
     - [Getting event by ID](#getting-event-by-id)
+    - [Outsourcing routes](#outsourcing-routes)
+    - [Updating event](#updating-event)
 
 ## Getting started
 
@@ -4213,6 +4215,41 @@ And, indeed, in this application, we are calling stmt.Close() directly after cal
 But in order to show you the different ways of using the sql package, I decided to also include this preparation approach in this course.
 
 ### Getting event by ID
+
+```go
+
+func getEvent(ctx *gin.Context) {
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "ID must be an integer"})
+		return
+	}
+
+	event, err := models.GetEventByID(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, event)
+}
+```
+
+### Outsourcing routes
+
+```go
+package routes
+
+import "github.com/gin-gonic/gin"
+
+func RegisterRoutes(server *gin.Engine) {
+	server.GET("/events", getEvents)
+	server.GET("/events/:id", getEvent)
+	server.POST("/events", postEvent)
+}
+```
+
+### Updating event
 
 ```go
 
