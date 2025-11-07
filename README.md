@@ -125,6 +125,11 @@
     - [Deferring execution](#deferring-execution)
   - [Rest Api](#rest-api)
     - [Gin framework](#gin-framework)
+    - [First route](#first-route)
+    - [Event model](#event-model)
+    - [POST route](#post-route)
+    - [Initializing database](#initializing-database)
+    - [Adding SQL database](#adding-sql-database)
 
 ## Getting started
 
@@ -4033,4 +4038,106 @@ func (fm FileManager) ReadLines() ([]string, error) {
 mkdir gin-quickstart && cd gin-quickstart
 go mod init gin-quickstart
 go get -u github.com/gin-gonic/gin
+```
+
+### First route
+
+```go
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	server := gin.Default()
+
+	server.GET("/events", getEvents)
+
+	server.Run(":8080")
+}
+
+func getEvents(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"message": "Hello Mario!"})
+}
+```
+
+### Event model
+
+```go
+package models
+
+import "time"
+
+type Event struct {
+	ID          int
+	Name        string
+	Description string
+	Location    string
+	DateTime    time.Time
+	UserID      int
+}
+
+var events = []Event{}
+
+func (e Event) Save() {
+	events = append(events, e)
+}
+
+func GetEvents() []Event {
+	return events
+}
+```
+
+### POST route
+
+```go
+func postEvent(ctx *gin.Context) {
+	var e models.Event
+
+	err := ctx.ShouldBindJSON(&e)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error parsing request"})
+		return
+	}
+
+	e.ID = 1
+	e.UserID = 1
+	e.Save()
+
+	ctx.JSON(http.StatusCreated, e)
+}
+```
+
+### Initializing database
+
+[SQL package](https://pkg.go.dev/database/sql)
+[DB drivers](https://go.dev/wiki/SQLDrivers)
+
+```go
+var DB *sql.DB
+
+func InitDB() {
+    var err error
+    DB, err = sql.Open("sqlite3", "api.db")
+
+    if err != nil {
+        panic("Could not connect to database.")
+    }
+
+    DB.SetMaxOpenConns(10)
+    DB.SetMaxIdleConns(5)
+
+    createTables()
+}
+```
+
+### Adding SQL database
+
+[Sqlite package](https://github.com/mattn/go-sqlite3)
+
+```sh
+go get github.com/mattn/go-sqlite3
 ```
