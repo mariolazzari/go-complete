@@ -19,7 +19,11 @@ func main() {
 }
 
 func getEvents(ctx *gin.Context) {
-	events := models.GetEvents()
+	events, err := models.GetEvents()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Error fetching evnts"})
+		return
+	}
 	ctx.JSON(http.StatusOK, events)
 }
 
@@ -34,7 +38,11 @@ func postEvent(ctx *gin.Context) {
 
 	e.ID = 1
 	e.UserID = 1
-	e.Save()
+	err = e.Save()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Errorsaving event"})
+		return
+	}
 
 	ctx.JSON(http.StatusCreated, e)
 }
