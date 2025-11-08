@@ -4181,6 +4181,22 @@ func signup(ctx *gin.Context) {
 
 ### Hashing passwords
 
-```go
+[bcrypt](https://pkg.go.dev/golang.org/x/crypto/bcrypt)
 
+```sh
+go get golang.org/x/crypto/bcrypt
 ```
+
+```go
+package utils
+
+import "golang.org/x/crypto/bcrypt"
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword(([]byte(password)), 14)
+
+	return string(bytes), err
+}
+```
+
+### JWT tokens

@@ -12,25 +12,29 @@ type User struct {
 }
 
 func (u User) Save() error {
-	query := "insert into users(email, password) values(?, ?)"
+	query := "INSERT INTO users(email, password) VALUES (?, ?)"
 	stmt, err := db.DB.Prepare(query)
+
 	if err != nil {
 		return err
 	}
+
 	defer stmt.Close()
 
-	hashed, err := utils.HashPassword(u.Password)
+	hashedPassword, err := utils.HashPassword(u.Password)
+
 	if err != nil {
 		return err
 	}
 
-	res, err := stmt.Exec(u.Email, hashed)
+	result, err := stmt.Exec(u.Email, hashedPassword)
+
 	if err != nil {
 		return err
 	}
 
-	id, err := res.LastInsertId()
-	u.ID = id
+	userId, err := result.LastInsertId()
 
+	u.ID = userId
 	return err
 }
