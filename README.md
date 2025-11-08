@@ -136,6 +136,7 @@
     - [Getting event by ID](#getting-event-by-id)
     - [Outsourcing routes](#outsourcing-routes)
     - [Updating event](#updating-event)
+    - [Delete event](#delete-event)
 
 ## Getting started
 
@@ -4250,6 +4251,27 @@ func RegisterRoutes(server *gin.Engine) {
 ```
 
 ### Updating event
+
+```go
+func (event Event) Update() error {
+	query := `
+	UPDATE events
+	SET name = ?, description = ?, location = ?, dateTime = ?
+	WHERE id = ?
+	`
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	return err
+}
+
+```
+
+### Delete event
 
 ```go
 

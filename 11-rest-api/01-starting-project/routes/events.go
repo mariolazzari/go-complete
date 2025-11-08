@@ -52,3 +52,54 @@ func getEvent(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, event)
 }
+
+func updateEvent(ctx *gin.Context) {
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "ID must be an integer"})
+		return
+	}
+
+	_, err = models.GetEventByID(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	var e models.Event
+	err = ctx.ShouldBindJSON(&e)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error parsing request"})
+		return
+	}
+
+	e.ID = id
+	err = e.Update()
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Error updating event"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "Event updated"})
+}
+
+func deleteEvent(ctx *gin.Context) {
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "ID must be an integer"})
+		return
+	}
+
+	event, err := models.GetEventByID(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	err = event.Delete()
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Error deleting event"})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"message": "Event deleted"})
+}
