@@ -1,9 +1,10 @@
 POST http://localhost:8080/events
 Content-Type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlvLmxhenphcmlAZ21haWwuY29tIiwiZXhwIjoxNzYyNzA4Mjc3LCJ1c2VySWQiOjB9.NbPu_bf6Sl4ubRv2Z-EY3k06mNc6gd_HvQdTbtWi7_I
 
 {
-    "name": "event 2",
-    "description": "second event",
+    "name": "event auth",
+    "description": "Authorized event",
     "location": "my location",
-    "dateTime": "2025-12-02T15:00:00.000Z"
+    "dateTime": "2025-12-03T15:00:00.000Z"
 }

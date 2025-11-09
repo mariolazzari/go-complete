@@ -4322,3 +4322,149 @@ func VerifyToken(token string) error {
 	return nil
 }
 ```
+
+### Route protection
+
+```go
+func postEvent(ctx *gin.Context) {
+	// token extraction
+	token := ctx.Request.Header.Get("Authorization")
+	if token == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "No token found"})
+		return
+	}
+
+	// verify token
+	err := utils.VerifyToken(token)
+
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid token"})
+		return
+	}
+
+	var e models.Event
+
+	err = ctx.ShouldBindJSON(&e)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error parsing request"})
+		return
+	}
+
+	e.ID = 1
+	e.UserID = 1
+	err = e.Save()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Errorsaving event"})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, e)
+}
+```
+
+### Storing IDs
+
+```go
+func VerifyToken(token string) (int64, error) {
+	parsedToken, err := jwt.Parse(token, func(token *jwt.Token) (any, error) {
+		_, ok := token.Method.(*jwt.SigningMethodHMAC)
+		if !ok {
+			return nil, errors.New("unexpected signing method")
+		}
+
+		return []byte(secretKey), nil
+	})
+
+	if err != nil {
+		return 0, errors.New("could not parse token")
+	}
+
+	isValid := parsedToken.Valid
+	if !isValid {
+		return 0, errors.New("invalid token")
+	}
+
+	claims, ok := parsedToken.Claims.(jwt.MapClaims)
+	if !ok {
+		return 0, errors.New("invalid token claims")
+	}
+
+	// email, _ := claims["email"].(string)
+	userId := int64(claims["userId"].(float64))
+
+	return userId, nil
+}
+```
+
+### Authentication middleware
+
+```go
+package middlewares
+
+import (
+	"net/http"
+
+	"example.com/rest-api/utils"
+	"github.com/gin-gonic/gin"
+)
+
+func Authenticate(ctx *gin.Context) {
+	// token extraction
+	token := ctx.Request.Header.Get("Authorization")
+	if token == "" {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "No token found"})
+		return
+	}
+
+	// verify token
+	userId, err := utils.VerifyToken(token)
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Invalid token"})
+		return
+	}
+
+	ctx.Set("userId", userId)
+	ctx.Next()
+}
+```
+
+### Editing authorization
+
+```go
+func updateEvent(ctx *gin.Context) {
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "ID must be an integer"})
+		return
+	}
+
+	event, err := models.GetEventByID(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	userId := ctx.GetInt64("userId")
+	if event.UserID != userId {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized to update this event"})
+		return
+	}
+
+	var e models.Event
+	err = ctx.ShouldBindJSON(&e)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error parsing request"})
+		return
+	}
+
+	e.ID = id
+	err = e.Update()
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Error updating event"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "Event updated"})
+}
+```

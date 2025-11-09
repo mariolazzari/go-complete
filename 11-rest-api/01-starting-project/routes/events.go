@@ -18,13 +18,6 @@ func getEvents(ctx *gin.Context) {
 }
 
 func postEvent(ctx *gin.Context) {
-	// token extraction
-	token := ctx.Request.Header.Get("Authorization")
-	if token == "" {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "No token found"})
-		return
-	}
-
 	var e models.Event
 
 	err := ctx.ShouldBindJSON(&e)
@@ -33,8 +26,7 @@ func postEvent(ctx *gin.Context) {
 		return
 	}
 
-	e.ID = 1
-	e.UserID = 1
+	e.UserID = ctx.GetInt64("userId")
 	err = e.Save()
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Errorsaving event"})
@@ -67,9 +59,15 @@ func updateEvent(ctx *gin.Context) {
 		return
 	}
 
-	_, err = models.GetEventByID(id)
+	event, err := models.GetEventByID(id)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	userId := ctx.GetInt64("userId")
+	if event.UserID != userId {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized to update this event"})
 		return
 	}
 
@@ -100,6 +98,12 @@ func deleteEvent(ctx *gin.Context) {
 	event, err := models.GetEventByID(id)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"message": "ID not found"})
+		return
+	}
+
+	userId := ctx.GetInt64("userId")
+	if event.UserID != userId {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "User not authorized to delete this event"})
 		return
 	}
 
