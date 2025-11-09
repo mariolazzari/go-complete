@@ -4199,4 +4199,92 @@ func HashPassword(password string) (string, error) {
 }
 ```
 
-### JWT tokens
+### Login route start
+
+```go
+func CheckPassword(password, hashed string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(password))
+
+	return err == nil
+}
+```
+
+### Login route finish
+
+```go
+func (u User) ValidateCredentials() error {
+	query := "select password from users where email = ?"
+	row := db.DB.QueryRow(query, u.Email)
+
+	var password string
+	err := row.Scan(&password)
+	if err != nil {
+		return err
+	}
+
+	isValid := utils.CheckPassword(u.Password, password)
+
+	if !isValid {
+		return errors.New("invalid password")
+	}
+
+	return nil
+}
+```
+
+### Generating JWT
+
+[Jwt package](https://github.com/golang-jwt/jwt)
+
+```sh
+go get -u github.com/golang-jwt/jwt/v5
+```
+
+```go
+package utils
+
+import (
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+)
+
+const secretKey = "supersecret"
+
+func GenerateToken(email string, userId int64) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"email":  email,
+		"userId": userId,
+		"exp":    time.Now().Add(time.Hour * 2).Unix(),
+	})
+
+	return token.SignedString([]byte(secretKey))
+}
+```
+
+### Finishing token
+
+```go
+func login(ctx *gin.Context) {
+	var user models.User
+	err := ctx.ShouldBindJSON(&user)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{"message": "Error parsing data"})
+		return
+	}
+
+	err = user.ValidateCredentials()
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})
+		return
+	}
+
+	token, err := utils.GenerateToken(user.Email, user.ID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"mesage": "Login successful", "token": token})
+}
+```
