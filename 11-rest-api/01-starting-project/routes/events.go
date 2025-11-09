@@ -18,6 +18,13 @@ func getEvents(ctx *gin.Context) {
 }
 
 func postEvent(ctx *gin.Context) {
+	// token extraction
+	token := ctx.Request.Header.Get("Authorization")
+	if token == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"message": "No token found"})
+		return
+	}
+
 	var e models.Event
 
 	err := ctx.ShouldBindJSON(&e)

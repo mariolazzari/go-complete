@@ -4288,3 +4288,37 @@ func login(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"mesage": "Login successful", "token": token})
 }
 ```
+
+### Token verification
+
+```go
+func VerifyToken(token string) error {
+	parsedToken, err := jwt.Parse(token, func(token *jwt.Token) (any, error) {
+		_, ok := token.Method.(*jwt.SigningMethodHMAC)
+		if !ok {
+			return nil, errors.New("unexpected signing method")
+		}
+
+		return secretKey, nil
+	})
+
+	if err != nil {
+		return errors.New("could not parse token")
+	}
+
+	isValid := parsedToken.Valid
+	if !isValid {
+		return errors.New("invalid token")
+	}
+
+	// claims, ok := parsedToken.Claims.(jwt.MapClaims)
+	// if !ok {
+	// 	return errors.New("invalid token claims")
+	// }
+
+	// email, _ := claims["email"].(string)
+	// userId, _ := claims["userId"].(int64)
+
+	return nil
+}
+```
