@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"example.com/rest-api/db"
 	"example.com/rest-api/models"
 	"github.com/gin-gonic/gin"
 )
@@ -32,17 +31,19 @@ func registerForEvent(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "Registered"})
 }
 
-func (e Event) CancelRegistration(userId int64) error {
-	query := "DELETE FROM registrations WHERE event_id = ? AND user_id = ?"
-	stmt, err := db.DB.Prepare(query)
+func cancelRegistration(context *gin.Context) {
+	userId := context.GetInt64("userId")
+	eventId, err := strconv.ParseInt(context.Param("id"), 10, 64)
+
+	var event models.Event
+	event.ID = eventId
+
+	err = event.CancelRegistration(userId)
 
 	if err != nil {
-		return err
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not cancel registration."})
+		return
 	}
 
-	defer stmt.Close()
-
-	_, err = stmt.Exec(e.ID, userId)
-
-	return err
+	context.JSON(http.StatusOK, gin.H{"message": "Cancelled!"})
 }
