@@ -4468,3 +4468,121 @@ func updateEvent(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "Event updated"})
 }
 ```
+
+### Registrations table
+
+```go
+package db
+
+import (
+	"database/sql"
+
+	_ "github.com/mattn/go-sqlite3"
+)
+
+var DB *sql.DB
+
+func InitDB() {
+	var err error
+	DB, err = sql.Open("sqlite3", "api.db")
+	if err != nil {
+		panic("Could not connect to database.")
+	}
+
+	DB.SetMaxOpenConns(10)
+	DB.SetMaxIdleConns(5)
+
+	createTables()
+}
+
+func createTables() {
+	createUsersTable := `
+	CREATE TABLE IF NOT EXISTS users (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		email TEXT NOT NULL UNIQUE,
+		password TEXT NOT NULL
+	)
+	`
+
+	_, err := DB.Exec(createUsersTable)
+	if err != nil {
+		panic("Could not create users table.")
+	}
+
+	createEventsTable := `
+	CREATE TABLE IF NOT EXISTS events (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		name TEXT NOT NULL,
+		description TEXT NOT NULL,
+		location TEXT NOT NULL,
+		dateTime DATETIME NOT NULL,
+		user_id INTEGER,
+		FOREIGN KEY(user_id) REFERENCES users(id)
+	)
+	`
+
+	_, err = DB.Exec(createEventsTable)
+	if err != nil {
+		panic("Could not create events table.")
+	}
+
+	createRegistrationsTable := `
+	CREATE TABLE IF NOT EXISTS registrations (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		event_id INTEGER,
+		user_id INTEGER,
+		FOREIGN KEY(event_id) REFERENCES events(id),
+		FOREIGN KEY(user_id) REFERENCES users(id)
+	)
+	`
+
+	_, err = DB.Exec(createRegistrationsTable)
+	if err != nil {
+		panic("Could not create registrations table.")
+	}
+}
+```
+
+### Registring users
+
+```go
+func registerForEvent(ctx *gin.Context) {
+	userId := ctx.GetInt64("userId")
+	eventId, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id."})
+		return
+	}
+
+	event, err := models.GetEventByID(eventId)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Event not found"})
+		return
+	}
+
+	err = event.Register(userId)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Could not register event"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "Registered"})
+}
+```
+
+### Cancelling registration
+
+```go
+
+func (e Event) CancelRegistration(userId int64) error {
+	query := "DELETE FROM registrations WHERE event_id = ? AND user_id = ?"
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(e.ID, userId)
+
+	return err
+}
+```

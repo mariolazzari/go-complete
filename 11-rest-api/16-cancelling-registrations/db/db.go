@@ -11,6 +11,7 @@ var DB *sql.DB
 func InitDB() {
 	var err error
 	DB, err = sql.Open("sqlite3", "api.db")
+
 	if err != nil {
 		panic("Could not connect to database.")
 	}
@@ -31,6 +32,7 @@ func createTables() {
 	`
 
 	_, err := DB.Exec(createUsersTable)
+
 	if err != nil {
 		panic("Could not create users table.")
 	}
@@ -48,6 +50,7 @@ func createTables() {
 	`
 
 	_, err = DB.Exec(createEventsTable)
+
 	if err != nil {
 		panic("Could not create events table.")
 	}
@@ -63,6 +66,7 @@ func createTables() {
 	`
 
 	_, err = DB.Exec(createRegistrationsTable)
+
 	if err != nil {
 		panic("Could not create registrations table.")
 	}
